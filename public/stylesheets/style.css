@@ -1,0 +1,37 @@
+
+
+header {
+    overflow: hidden;
+  }
+  
+  .navbar .navbar-brand {
+    color: #4592af;
+  }
+  
+  .navbar .navbar-brand:hover {
+    color: #226089;
+  }
+
+.banner {
+    position: relative;
+    z-index: -1;
+    margin: -5px;
+    height: 360px;
+    background: #dddddd center center url('https://www.weddings.tw/wp-content/uploads/2018/06/002-27.jpg');
+    background-size: cover;
+    filter: blur(3px);
+  }
+
+  .card {
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card img {
+    height: 180px;
+  }
+  
+  .card-title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
