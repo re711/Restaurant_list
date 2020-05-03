@@ -1,30 +1,39 @@
-<div class="container py-5">
-  <div class="text-center">
-    <h1 class="mb-4">{{restaurant.name}}</h1>
-    <img class="rounded mb-4" src="{{restaurant.image}}" alt="Card image cap"
-      style="max-height: 300px;">
-  </div>
-  <div class="row">
-    <div class="col-12 col-md-10 col-lg-8 mx-auto">
-        <p class="text-info">
-            <i class="far fa-bookmark"></i>
-            <strong>料理分類:</strong>
-            {{restaurant.category}} 
-        </p>
-        <p class="text-info">
-            <i class="fas fa-mobile-alt"></i>
-            <strong>電話:</strong>
-            {{restaurant.phone}} 
-        </p>
-        <p class="text-info"> 
-            <i class="fab fa-ethereum"></i>
-            <strong>地址:</strong>
-            {{restaurant.location}}
-        </p>
-        <p>
-            <strong>餐廳特色介紹:</strong>
+<h1 class="mb-1 restaurant-show-title">{{restaurant.name}}</h1>
+<div class="container">
+    <div class="row">
+       <div class="col-12 col-md-10 mx-auto">
+          <p class="mb-1">
+            <span class="text-secondary">
+              <i class="far fa-bookmark pr-2"></i>
+              類別：
+            </span>
+            {{restaurant.category}}
+          </p>
+
+          <p class="mb-1">
+            <span class="text-secondary">
+              <i class="fab fa-ethereum pr-2"></i>
+              地址：
+            </span>
+              {{restaurant.location}}
+              <a href="{{restaurant.google_map}}" class="text-secondary" target="_blank">
+              <i class="fas fa-location-arrow pr-2 fa-xs"></i>
+              </a>
+          </p>
+
+          <p class="mb-1">
+            <span class="text-secondary">
+              <i class="fas fa-mobile-alt pr-2"></i>
+              電話：
+            </span>
+            {{restaurant.phone}}
+          </p>
+
+          <p class="mb-5">
             {{restaurant.description}}
-        </p>
+          </p>
+
+          <img class="rounded mx-auto d-block mb-4 w-100" src="{{restaurant.image}}">
+        </div>
     </div>
-  </div>
 </div>
