@@ -29,11 +29,22 @@
             {{restaurant.phone}}
           </p>
 
+          <p class="mb-1">
+            <span class="text-secondary">
+              <i class="far fa-gem"></i>
+              評分：
+            </span>
+            {{restaurant.rating}}
+          </p>
+
           <p class="mb-5">
             {{restaurant.description}}
           </p>
 
           <div class="mb-3 text-center">
+            <a href="/restaurant/{{restaurant._id}}/edit">
+              <button type="button" class="">修改</button>
+            </a>
             <a href="/">
               <button type="button" class="">返回</button>
             </a>

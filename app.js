@@ -60,7 +60,7 @@ app.post('/restaurants', (req, res) => {
 })
 
 // 詳細資訊
-app.get('/restaurants/:id', (req, res) => {
+app.get('/restaurant/:id', (req, res) => {
   const id = req.params.id
   return Restaurant.findById(id)
     .lean()
@@ -68,6 +68,33 @@ app.get('/restaurants/:id', (req, res) => {
     .catch(error => console.log(error))
 })
 
+// 修改頁面
+app.get('/restaurant/:id/edit', (req, res) => {
+  const id = req.params.id
+  return Restaurant.findById(id)
+    .lean()
+    .then((restaurant) => res.render('edit', { restaurant }))
+    .catch(error => console.log(error))
+})
+
+app.post('/restaurant/:id/edit', (req, res) => {
+  const id = req.params.id
+  const body = req.body
+  return Restaurant.findById(id)
+    .then(restaurant => {
+      restaurant.name = body.name
+      restaurant.category = body.category
+      restaurant.location = body.location
+      restaurant.google_map = `https://www.google.com/maps/search/?api=1&query=${body.location}`
+      restaurant.phone = body.phone
+      restaurant.rating = body.rating
+      restaurant.description = body.description
+      restaurant.image = body.image
+      restaurant.save()
+    })
+    .then(() => res.redirect(`/restaurant/${id}`))
+    .catch(error => console.log(error))
+})
 // app.get('/search', (req, res) => {
 //   const keyword = req.query.keyword
 //   const restaurant = restaurantList.results.filter(restaurant => {
