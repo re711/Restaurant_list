@@ -23,10 +23,11 @@
         <div class="col-md-10 col-12 mx-auto">
             <div class="card-columns">
                 {{#each restaurants}}
-                <a href="/restaurant/{{this.id}}" class="text-secondary">
+                <a href="/restaurants/{{this._id}}" class="text-secondary">
                     <div class="card mb-3">
                         <img class="card-img-top" src="{{this.image}}" alt="Card image cap">
-                        <div class="card-body">
+                </a>
+                          <div class="card-body">
                             <h6 class="card-title">{{this.name}}</h6>
                             <p class="card-text">
                                 <i class="far fa-bookmark"></i>
@@ -36,9 +37,9 @@
                                 <i class="far fa-gem"></i>
                                 {{this.rating}}                             
                             </span>
-                        </div>
-                    </div>
-                </a>
+                          </div>
+                      </div>
+                  
                 {{/each}}
             </div>    
         </div>
