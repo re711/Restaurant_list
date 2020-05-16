@@ -23,7 +23,7 @@
         <div class="col-md-10 col-12 mx-auto">
             <div class="card-columns">
                 {{#each restaurants}}
-                <a href="/restaurant/{{this._id}}" class="text-secondary">
+                <a href="./restaurant/{{this._id}}" class="text-secondary">
                     <div class="card mb-3">
                         <img class="card-img-top" src="{{this.image}}" alt="Card image cap">
                 </a>
@@ -38,10 +38,16 @@
                                 {{this.rating}}                             
                             </span>
 
-                            <a href="/restaurant/{{this._id}}/edit">
-                              <i class="fas fa-edit"></i>
+                            <a href="./restaurant/{{this._id}}/edit">
+                              <button type="button">
+                                <i class="fas fa-edit"></i>
+                              </button>
                             </a>
-
+                            <form action="./restaurant/{{this._id}}/delete" method="POST" style="display: inline;">                              
+                              <button type="submit">
+                                <i class="fas fa-trash-alt"></i>
+                              </button>
+                            </form>
                           </div>
                       </div>
                 {{/each}}
