@@ -105,14 +105,14 @@ app.post('/restaurant/:id/delete', (req, res) => {
     .catch(error => console.log(error))
 })
 
-// app.get('/search', (req, res) => {
-//   const keyword = req.query.keyword
-//   const restaurant = restaurantList.results.filter(restaurant => {
-//     return restaurant.name.toLocaleLowerCase().includes(keyword.toLocaleLowerCase()) ||
-//     restaurant.category.toLocaleLowerCase().includes(keyword.toLocaleLowerCase())
-//   })
-//   res.render('index', { restaurant: restaurant, keyword: keyword })
-// })
+// 搜尋功能
+app.get('/search', (req, res) => {
+  const keyword = req.query.keyword
+  Restaurant.find({ name: { $regex: keyword, $options: 'i' } })
+    .lean()
+    .then(restaurants => res.render('index', { restaurants, keyword }))
+    .catch(error => console.log(error))
+})
 
 app.listen(port, () => {
   console.log(`Express is listening on http://localhost:${port}`)
