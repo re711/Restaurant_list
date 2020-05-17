@@ -2,6 +2,7 @@ const express = require('express')
 const mongoose = require('mongoose') // 載入 mongoose
 const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser')
+const methodOverride = require('method-override')
 
 const Restaurant = require('./models/restaurant') // 載入 Restaurant model
 
@@ -26,6 +27,8 @@ app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
 
 app.use(express.static('public'))
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(methodOverride('_method'))
 
 // 首頁
 app.get('/', (req, res) => {
@@ -35,7 +38,7 @@ app.get('/', (req, res) => {
     .catch(error => console.error(error)) // 錯誤處理
 })
 
-app.use(bodyParser.urlencoded({ extended: true }))
+
 
 // 新增頁面
 app.get('/restaurants/create', (req, res) => {
@@ -68,7 +71,7 @@ app.get('/restaurant/:id', (req, res) => {
     .catch(error => console.log(error))
 })
 
-// 修改頁面
+// 編輯頁面
 app.get('/restaurant/:id/edit', (req, res) => {
   const id = req.params.id
   return Restaurant.findById(id)
@@ -77,7 +80,7 @@ app.get('/restaurant/:id/edit', (req, res) => {
     .catch(error => console.log(error))
 })
 
-app.post('/restaurant/:id/edit', (req, res) => {
+app.put('/restaurant/:id', (req, res) => {
   const id = req.params.id
   const body = req.body
   return Restaurant.findById(id)
@@ -97,7 +100,7 @@ app.post('/restaurant/:id/edit', (req, res) => {
 })
 
 // 刪除功能
-app.post('/restaurant/:id/delete', (req, res) => {
+app.delete('/restaurant/:id', (req, res) => {
   const id = req.params.id
   return Restaurant.findById(id)
     .then(restaurant => restaurant.remove())
