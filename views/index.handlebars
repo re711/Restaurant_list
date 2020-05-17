@@ -37,17 +37,18 @@
                                 <i class="far fa-gem"></i>
                                 {{this.rating}}                             
                             </span>
-
-                            <a href="./restaurant/{{this._id}}/edit">
-                              <button type="button">
-                                <i class="fas fa-edit"></i>
-                              </button>
-                            </a>
-                            <form action="./restaurant/{{this._id}}/delete" method="POST" style="display: inline;" onsubmit="return deleteCheck()">                              
-                              <button type="submit">
-                                <i class="fas fa-trash-alt"></i>
-                              </button>
-                            </form>
+                            <div class="text-right">
+                              <a href="./restaurant/{{this._id}}/edit">
+                                <button type="button">
+                                  <i class="fas fa-edit"></i>
+                                </button>
+                              </a>
+                              <form action="./restaurant/{{this._id}}/delete" method="POST" style="display: inline;" onsubmit="return deleteCheck()">                              
+                                <button type="submit">
+                                  <i class="fas fa-trash-alt"></i>
+                                </button>
+                              </form>
+                            </div>
                           </div>
                       </div>
                 {{/each}}
