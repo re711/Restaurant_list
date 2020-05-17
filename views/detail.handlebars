@@ -42,12 +42,12 @@
           </p>
 
           <div class="mb-3 text-center">
-            <a href="/restaurant/{{restaurant._id}}/edit">
+            <a href="/restaurants/{{restaurant._id}}/edit">
               <button type="button" class="">
                 <i class="fas fa-edit"></i>
               </button>
             </a>
-            <form action="/restaurant/{{restaurant._id}}?_method=DELETE" method="POST" style="display: inline;" onsubmit="return deleteCheck()">
+            <form action="/restaurants/{{restaurant._id}}?_method=DELETE" method="POST" style="display: inline;" onsubmit="return deleteCheck()">
               <button type="submit">
                 <i class="fas fa-trash-alt"></i>
               </button>

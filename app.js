@@ -3,12 +3,10 @@ const mongoose = require('mongoose') // 載入 mongoose
 const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
-
-const Restaurant = require('./models/restaurant') // 載入 Restaurant model
-
 const app = express()
 const port = 3000
 
+const routes = require('./routes')
 mongoose.connect('mongodb://localhost/restaurant-list', { useNewUrlParser: true, useUnifiedTopology: true }) // 設定連線到 mongoDB
 
 const db = mongoose.connection // 取得資料庫連線狀態
@@ -21,101 +19,13 @@ db.once('open', () => {
   console.log('mongodb connected!') // 連線成功
 })
 
-// const restaurantList = require('./restaurant.json')
-
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
 
 app.use(express.static('public'))
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
-
-// 首頁
-app.get('/', (req, res) => {
-  Restaurant.find() // 取出 Restaurant model 裡的所有資料
-    .lean() // 把 mongoose 的 Model 物件轉換成乾淨的 JavaScript 資料陣列
-    .then(restaurants => res.render('index', { restaurants })) // 將資料傳給 index 樣板
-    .catch(error => console.error(error)) // 錯誤處理
-})
-
-
-
-// 新增頁面
-app.get('/restaurants/create', (req, res) => {
-  return res.render('create')
-})
-
-// 新增資料
-app.post('/restaurants', (req, res) => {
-  const restaurant = req.body
-  return Restaurant.create({
-    name: restaurant.name,
-    category: restaurant.category,
-    image: restaurant.image,
-    location: restaurant.location,
-    phone: restaurant.phone,
-    google_map: `https://www.google.com/maps/search/?api=1&query=${restaurant.location}`,
-    description: restaurant.description,
-    rating: restaurant.rating
-  })
-    .then(() => res.redirect('/'))
-    .catch(error => console.log(error))
-})
-
-// 詳細資訊
-app.get('/restaurant/:id', (req, res) => {
-  const id = req.params.id
-  return Restaurant.findById(id)
-    .lean()
-    .then((restaurant) => res.render('detail', { restaurant }))
-    .catch(error => console.log(error))
-})
-
-// 編輯頁面
-app.get('/restaurant/:id/edit', (req, res) => {
-  const id = req.params.id
-  return Restaurant.findById(id)
-    .lean()
-    .then((restaurant) => res.render('edit', { restaurant }))
-    .catch(error => console.log(error))
-})
-
-app.put('/restaurant/:id', (req, res) => {
-  const id = req.params.id
-  const body = req.body
-  return Restaurant.findById(id)
-    .then(restaurant => {
-      restaurant.name = body.name
-      restaurant.category = body.category
-      restaurant.location = body.location
-      restaurant.google_map = `https://www.google.com/maps/search/?api=1&query=${body.location}`
-      restaurant.phone = body.phone
-      restaurant.rating = body.rating
-      restaurant.description = body.description
-      restaurant.image = body.image
-      restaurant.save()
-    })
-    .then(() => res.redirect(`/restaurant/${id}`))
-    .catch(error => console.log(error))
-})
-
-// 刪除功能
-app.delete('/restaurant/:id', (req, res) => {
-  const id = req.params.id
-  return Restaurant.findById(id)
-    .then(restaurant => restaurant.remove())
-    .then(() => res.redirect('/'))
-    .catch(error => console.log(error))
-})
-
-// 搜尋功能
-app.get('/search', (req, res) => {
-  const keyword = req.query.keyword
-  Restaurant.find({ name: { $regex: keyword, $options: 'i' } })
-    .lean()
-    .then(restaurants => res.render('index', { restaurants, keyword }))
-    .catch(error => console.log(error))
-})
+app.use(routes)
 
 app.listen(port, () => {
   console.log(`Express is listening on http://localhost:${port}`)
