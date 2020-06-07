@@ -1,12 +1,13 @@
-const experss = require('express')
+const express = require('express')
 const User = require('../../models/user')
 const passport = require('passport')
 
-const router = experss.Router()
+const router = express.Router()
 
 router.get('/login', (req, res) => {
   res.render('login')
 })
+
 router.post('/login', passport.authenticate('local', {
   successRedirect: '/',
   failureRedirect: 'users/login'
@@ -16,7 +17,7 @@ router.get('/register', (req, res) => {
   res.render('register')
 })
 
-router.post('/login', (req, res) => {
+router.post('/register', (req, res) => {
   const { name, email, password, confirmPassword } = req.body
   User.findOne({ email }).then(user => {
     if (user) {
