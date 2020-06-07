@@ -19,10 +19,16 @@
   <nav class="navbar navbar-light bg-light">
     <div class="container">
       <a class="navbar-brand" href="/">
-          <img src="https://assets-lighthouse.s3.amazonaws.com/uploads/image/file/6227/restaurant-list-logo.png" width="30" height="30" class="d-inline-block align-top" alt="我的餐廳清單">
-          我的餐廳清單
+        {{#if isAuthenticated}}{{user.name}}'s {{/if}}
+        <img src="https://assets-lighthouse.s3.amazonaws.com/uploads/image/file/6227/restaurant-list-logo.png" width="30" height="30" class="d-inline-block align-top" alt="我的餐廳清單">
+        我的餐廳清單
       </a>
-      <a href="/restaurants/create" class="btn btn-outline-light" style="background-color: rgb(77, 183, 224);">新增餐廳</a>
+      {{#if isAuthenticated}}
+      <a href="/users/logout" class="btn btn-outline-light" style="background-color: rgb(77, 183, 224);">Logout</a>
+      {{else}}
+      <a href="/users/login" class="btn btn-outline-light" style="background-color: rgb(77, 183, 224);">Login</a>
+      {{/if}}
+      {{!-- <a href="/restaurants/create" class="btn btn-outline-light" style="background-color: rgb(77, 183, 224);">新增餐廳</a> --}}
     </div>
   </nav>
 

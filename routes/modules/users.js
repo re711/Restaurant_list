@@ -7,6 +7,14 @@ const router = experss.Router()
 router.get('/login', (req, res) => {
   res.render('login')
 })
+router.post('/login', passport.authenticate('local', {
+  successRedirect: '/',
+  failureRedirect: 'users/login'
+}))
+
+router.get('/register', (req, res) => {
+  res.render('register')
+})
 
 router.post('/login', (req, res) => {
   const { name, email, password, confirmPassword } = req.body
@@ -30,15 +38,6 @@ router.post('/login', (req, res) => {
     }
   })
 })
-
-router.get('/register', (req, res) => {
-  res.render('register')
-})
-
-router.post('/login', passport.authenticate('local', {
-  successRedirect: '/',
-  failureRedirect: 'users/login'
-}))
 
 router.get('/logout', (req, res) => {
   req.logout()
