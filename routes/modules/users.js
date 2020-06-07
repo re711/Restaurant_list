@@ -1,5 +1,6 @@
 const experss = require('express')
 const User = require('../../models/user')
+const passport = require('passport')
 
 const router = experss.Router()
 
@@ -32,6 +33,16 @@ router.post('/login', (req, res) => {
 
 router.get('/register', (req, res) => {
   res.render('register')
+})
+
+router.post('/login', passport.authenticate('local', {
+  successRedirect: '/',
+  failureRedirect: 'users/login'
+}))
+
+router.get('/logout', (req, res) => {
+  req.logout()
+  res.redirect('/users/login')
 })
 
 module.exports = router
