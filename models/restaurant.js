@@ -22,7 +22,7 @@ const restaurantSchema = new Schema({
     require: true
   },
   phone: {
-    type: Number,
+    type: String,
     require: true
   },
   google_map: {
