@@ -18,8 +18,8 @@ const SEED_USER = [{
 }]
 
 db.once('open', () => {
-  const user2 = SEED_USER[1]
   const user1 = SEED_USER[0]
+  const user2 = SEED_USER[1]
   bcrypt
     .genSalt(10)
     .then(salt => bcrypt.hash(user1.password, salt))
@@ -58,7 +58,7 @@ db.once('open', () => {
     }))
     .then(user => {
       const userId = user._id
-      const seed2 = restaurantList.results.slice(4, 7)
+      const seed2 = restaurantList.results.slice(3, 6)
       return Promise.all(Array.from(
         { length: seed2.length },
         (_, i) =>
