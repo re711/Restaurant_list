@@ -11,6 +11,19 @@ router.get('/create', (req, res) => {
 router.post('/', (req, res) => {
   const userId = req.user._id
   const restaurant = req.body
+  const { name, category, description } = req.body
+  const errors = []
+  if (!name || !category || !description) {
+    errors.push({ message: '最少要填入餐廳名子、類別、餐廳介紹' })
+  }
+  if (errors.length) {
+    return res.render('create', {
+      errors,
+      name,
+      category,
+      description
+    })
+  }
   return Restaurant.create({
     name: restaurant.name,
     category: restaurant.category,
@@ -50,6 +63,19 @@ router.put('/:id', (req, res) => {
   const userId = req.user._id
   const _id = req.params.id
   const body = req.body
+  const { name, category, description } = req.body
+  const errors = []
+  if (!name || !category || !description) {
+    errors.push({ message: '最少要填入餐廳名子、類別、餐廳介紹' })
+  }
+  if (errors.length) {
+    return res.render('edit', {
+      errors,
+      name,
+      category,
+      description
+    })
+  }
   return Restaurant.findOne({ _id, userId })
     .then(restaurant => {
       restaurant.name = body.name
